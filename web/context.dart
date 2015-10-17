@@ -17,10 +17,14 @@ class DrawingContext {
   DrawingContext(Element this.rootElement){
     _rootSvgElement = new SvgSvgElement();
     _rootSvgElement.setAttribute("id", "drawing");
-    //_rootSvgElement.setAttribute("viewBox", "0 0 400 400");
     rootElement.append(_rootSvgElement);
     _activeLayer = layers["Layer 1"] = new DefaultLayer(_rootSvgElement);
+    window.onResize.listen((e){ resetHeight(); });
+    resetHeight();
+  }
 
+  void resetHeight(){
+    _rootSvgElement.setAttribute("height", window.innerHeight.toString() + "px");
   }
 
   void activateLayer(String layerName){
